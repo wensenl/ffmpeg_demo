@@ -1,7 +1,7 @@
 #!/bin/sh
 
 #编译安装路径
-install_path=${PWD}/build/install/
+install_path=${PWD}/build/install
 export install_path_env=${install_path}
 
 
@@ -16,7 +16,7 @@ else
 	tar xzvf ./sdk/x264.tar.gz -C ./build/
 	cd ./build/x264
 	./configure --prefix=${install_path} --enable-static
-	make
+	make -j4
 	make install
 
 	cd ../..
@@ -31,7 +31,7 @@ else
 	tar xzvf ./sdk/faac-1.28-bugfix.tar.gz -C ./build/
 	cd ./build/faac-1.28
 	./configure --prefix=${install_path} --enable-static --disable-shared
-	make
+	make -j4
 	make install
 	cd ../..
 fi
@@ -40,10 +40,19 @@ if [ -d build/ffmpeg-2.8.10 ]
 then
 	echo "ffmpeg-2.8.10 already build"
 else
-	tar xjvf ./sdk/ffmpeg-2.8.10.tar.gz -C ./build/
+	tar xzvf ./sdk/ffmpeg-2.8.10.tar.gz -C ./build/
 	cd ./build/ffmpeg-2.8.10
 	./configure \
 		--prefix=${install_path} \
+		--extra-cflags='-I./../install/include' \
+		--extra-ldflags='-L./../install/lib -gl' \
+		--extra-libs='-ldl ' \
+		--enable-version3 \
+		--enable-pthreads \
+		--enable-static \
+		--disable-shared \
+		--enable-gpl \
+		--enable-nonfree \
 		--enable-libx264 \
 		--enable-libfaac \
 		--disable-devices
@@ -52,5 +61,15 @@ else
 
 	cd ../..
 fi
+
+#编译demo
+rm -rf build/ffmpeg_demo 
+mkdir build/ffmpeg_demo
+cd build/ffmpeg_demo
+cmake ./../..
+make
+cp -arf ./video_combine ./../..
+cp -arf ./ffmpegdemo ./../..
+
 
 

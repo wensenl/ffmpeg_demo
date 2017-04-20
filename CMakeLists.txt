@@ -25,10 +25,24 @@ $ENV{install_path_env}/include/ )
 LINK_DIRECTORIES(
 $ENV{install_path_env}/lib/ )
 
-
 ##################################################
 # 定义库文件
-SET(LIB avdevice avfilter avformat avcodec swresample swscale avutil dl z bz2 m pthread)
+SET(LIB 
+    avdevice 
+    avfilter 
+    avformat 
+    avcodec 
+    postproc
+    swresample 
+    swscale 
+    avutil 
+    faac 
+    x264 
+    dl 
+    z 
+    bz2 
+    m 
+    pthread)
 
 ##################################################
 # 编译可执行程序 

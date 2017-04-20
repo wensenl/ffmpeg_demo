@@ -1,5 +1,6 @@
-./../configure \
---prefix=/home/liangws/develop/project/ffmpegdemo \
---enable-libx264 \
---enable-libfaac \
---disable-devices
+说明：
+1、编译说明
+
+
+2、例子说明
+
