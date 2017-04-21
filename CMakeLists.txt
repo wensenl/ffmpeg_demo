@@ -38,11 +38,11 @@ SET(LIB
     avutil 
     faac 
     x264 
-    dl 
     z 
     bz2 
     m 
-    pthread)
+    pthread 
+    dl)
 
 ##################################################
 # 编译可执行程序 
